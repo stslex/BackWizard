@@ -1,5 +1,6 @@
 package com.stslex
 
+import com.stslex.db.DatabaseFactory
 import com.stslex.plugins.routingPlugin
 import com.stslex.plugins.serializationPlugin
 import com.stslex.plugins.templatingPlugin
@@ -20,6 +21,7 @@ fun main() {
 }
 
 private fun Application.module() {
+    DatabaseFactory.initDatabase()
     serializationPlugin()
     routingPlugin()
     templatingPlugin()
