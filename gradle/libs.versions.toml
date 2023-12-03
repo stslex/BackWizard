@@ -1,0 +1,57 @@
+[versions]
+kotlin = "1.9.21"
+ktor = "2.3.2"
+logback = "1.2.11"
+exposed = "0.41.1"
+h2 = "2.1.214"
+postgres = "42.5.1"
+koin = "3.4.3"
+[libraries]
+exposed-core = { group = "org.jetbrains.exposed", name = "exposed-core", version.ref = "exposed" }
+exposed-dao = { group = "org.jetbrains.exposed", name = "exposed-dao", version.ref = "exposed" }
+exposed-jdbc = { group = "org.jetbrains.exposed", name = "exposed-jdbc", version.ref = "exposed" }
+
+h2 = { group = "com.h2database", name = "h2", version.ref = "h2" }
+
+postgres = { group = "org.postgresql", name = "postgresql", version.ref = "postgres" }
+
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-ktor = { group = "io.insert-koin", name = "koin-ktor", version.ref = "koin" }
+koin-logger-slf4j = { group = "io.insert-koin", name = "koin-logger-slf4j", version.ref = "koin" }
+
+ktor-server-swagger = { group = "io.ktor", name = "ktor-server-swagger", version.ref = "ktor" }
+
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-server-content-negotiation = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-auth = { group = "io.ktor", name = "ktor-server-auth", version.ref = "ktor" }
+ktor-server-auth-jwt = { group = "io.ktor", name = "ktor-server-auth-jwt", version.ref = "ktor" }
+ktor-server-cio-jvm = { group = "io.ktor", name = "ktor-server-cio-jvm", version.ref = "ktor" }
+ktor-server-freemarker = { group = "io.ktor", name = "ktor-server-freemarker", version.ref = "ktor" }
+
+ktor-server-core-jvm = { group = "io.ktor", name = "ktor-server-core-jvm", version.ref = "ktor" }
+ktor-server-netty-jvm = { group = "io.ktor", name = "ktor-server-netty-jvm", version.ref = "ktor" }
+
+logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
+
+kotlin-test-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin" }
+ktor-server-tests-jvm = { group = "io.ktor", name = "ktor-server-tests-jvm", version.ref = "ktor" }
+[plugins]
+
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+[bundles]
+exposed = ["exposed-core", "exposed-dao", "exposed-jdbc"]
+ktor = [
+    "ktor-serialization-kotlinx-json",
+    "ktor-server-content-negotiation",
+    "ktor-server-auth",
+    "ktor-server-auth-jwt",
+    "ktor-server-cio-jvm",
+    "ktor-server-freemarker",
+    "ktor-server-core-jvm",
+    "ktor-server-netty-jvm",
+]
+test = ["kotlin-test-junit", "ktor-server-tests-jvm"]
+koin = ["koin-core", "koin-ktor", "koin-logger-slf4j"]
