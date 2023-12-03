@@ -8,13 +8,10 @@ group = "com.stslex"
 version = "0.0.1"
 
 dependencies {
-    implementation(libs.bundles.ktor)
-    implementation(libs.bundles.koin)
-    implementation(libs.bundles.exposed)
-    implementation(libs.h2)
-    implementation(libs.postgres)
+    implementation(project(":core:core"))
+    implementation(project(":core:database"))
+
     implementation(libs.ktor.server.swagger)
-    implementation(libs.logback.classic)
     testImplementation(libs.bundles.test)
 }
 

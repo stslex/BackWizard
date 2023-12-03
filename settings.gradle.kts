@@ -14,4 +14,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "BackWizard"
-include("app")
+include(":app")
+include(":core:core")
+include(":core:database")
