@@ -17,3 +17,4 @@ rootProject.name = "BackWizard"
 include(":app")
 include(":core:core")
 include(":core:database")
+include(":feature:auth")

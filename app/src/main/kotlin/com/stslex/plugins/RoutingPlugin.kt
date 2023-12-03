@@ -18,7 +18,7 @@ fun Routing.routineTest() {
     val userDatabaseSource by inject<UserDatabaseSource>()
     get("hello/{username}") {
         val username = call.parameters["username"].orEmpty()
-        val nickname = userDatabaseSource.getUser(username = username)
+        val nickname = userDatabaseSource.getUserByUsername(username = username)
             ?.nickname
             ?: "unknown"
         call.respond(nickname)

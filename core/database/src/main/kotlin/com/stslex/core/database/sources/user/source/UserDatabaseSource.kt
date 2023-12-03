@@ -4,5 +4,7 @@ import com.stslex.core.database.sources.user.model.UserSourceModel
 
 interface UserDatabaseSource {
 
-    suspend fun getUser(username: String): UserSourceModel?
+    suspend fun getUserByUsername(username: String): UserSourceModel?
+
+    suspend fun getUserByUuid(uuidString: String): UserSourceModel?
 }

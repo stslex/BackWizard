@@ -10,6 +10,7 @@ version = "0.0.1"
 dependencies {
     implementation(project(":core:core"))
     implementation(project(":core:database"))
+    implementation(project(":feature:auth"))
 
     implementation(libs.ktor.server.swagger)
     testImplementation(libs.bundles.test)
