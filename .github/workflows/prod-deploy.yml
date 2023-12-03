@@ -1,0 +1,67 @@
+name: Server Deploy MASTER
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: set up CONFIG
+        env:
+          CONFIG: ${{ secrets.CONFIG }}
+        run: |
+          echo "$CONFIG" > app/src/main/resources/application.conf
+          ls app/src/main/resources
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Set up Docker Build
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v4.1.1
+        with:
+          push: true
+          tags: stslex/wizard:latest
+          platforms: linux/amd64
+          context: .
+
+      - name: SSH Command
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          key: ${{ secrets.SERVER_SSH }}
+          script: |
+            cd wizard
+            docker compose pull wizard_latest
+            docker compose down wizard_latest
+            docker compose up wizard_latest -d
