@@ -5,7 +5,7 @@ import com.stslex.core.core.Config
 import com.stslex.core.core.respondError
 import com.stslex.plugins.auth.JwtAuthPlugin.configureJwt
 import com.stslex.plugins.auth.model.UnauthorizedError
-import com.stslex.plugins.auth.presenter.AuthPluginPresenter
+import com.stslex.plugins.auth.presenter.AuthPluginUtil
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
@@ -16,7 +16,7 @@ object AuthPlugin {
     internal const val API_KEY_HEADER_NAME = "x-api-key"
 
     fun Application.configureAuthPlugin() {
-        val authPluginPresenter by inject<AuthPluginPresenter>()
+        val authPluginPresenter by inject<AuthPluginUtil>()
         install(Authentication) {
             configureApiKey()
             configureJwt(authPluginPresenter)

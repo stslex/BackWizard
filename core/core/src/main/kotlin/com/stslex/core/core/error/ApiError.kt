@@ -13,3 +13,15 @@ interface ApiError {
             message = message
         )
 }
+
+enum class ApiCommonError(
+    override val message: String,
+    override val messageCode: Int,
+    override val statusCode: HttpStatusCode
+) : ApiError {
+    INTERNAL_ERROR(
+        statusCode = HttpStatusCode.InternalServerError,
+        messageCode = 500,
+        message = "Internal error"
+    ),
+}

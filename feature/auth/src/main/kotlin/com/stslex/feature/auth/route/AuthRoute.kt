@@ -15,14 +15,22 @@ fun Route.authRoute() {
     val interactor by inject<AuthInteractor>()
     authenticate(UN_AUTH.configName) {
         post("$AUTH_HOST/registration") {
-            interactor.registration(call.receive())
-                .onSuccess(call::respondCreated)
-                .onError(call::respondError)
+            processCall(
+                action = {
+                    interactor.registration(call.receive())
+                },
+                onError = call::respondError,
+                onSuccess = call::respondCreated
+            )
         }
         post("$AUTH_HOST/login") {
-            interactor.auth(call.receive())
-                .onSuccess(call::respondCreated)
-                .onError(call::respondError)
+            processCall(
+                action = {
+                    interactor.auth(call.receive())
+                },
+                onError = call::respondError,
+                onSuccess = call::respondOK
+            )
         }
     }
 }

@@ -1,11 +1,13 @@
 package com.stslex.plugins.auth.presenter
 
 import com.stslex.core.database.sources.user.source.UserDatabaseSource
+import com.stslex.feature.auth.utils.JwtConfig.PAYLOAD_USERNAME
+import com.stslex.feature.auth.utils.JwtConfig.PAYLOAD_UUID
 import io.ktor.server.auth.jwt.*
 
-class AuthPluginPresenterImpl(
+class AuthPluginUtilImpl(
     private val userDatabaseSource: UserDatabaseSource
-) : AuthPluginPresenter {
+) : AuthPluginUtil {
 
     override suspend fun checkJwtCredential(credential: JWTCredential): JWTPrincipal? {
         val uuid = credential
@@ -26,10 +28,5 @@ class AuthPluginPresenterImpl(
         return if (user.username == username) {
             JWTPrincipal(credential.payload)
         } else null
-    }
-
-    companion object {
-        private const val PAYLOAD_UUID = "uuid"
-        private const val PAYLOAD_USERNAME = "username"
     }
 }

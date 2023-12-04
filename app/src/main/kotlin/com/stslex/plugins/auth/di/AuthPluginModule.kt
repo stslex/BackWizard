@@ -1,11 +1,11 @@
 package com.stslex.plugins.auth.di
 
-import com.stslex.plugins.auth.presenter.AuthPluginPresenter
-import com.stslex.plugins.auth.presenter.AuthPluginPresenterImpl
+import com.stslex.plugins.auth.presenter.AuthPluginUtil
+import com.stslex.plugins.auth.presenter.AuthPluginUtilImpl
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
 val authPluginModule = module {
-    factoryOf(::AuthPluginPresenterImpl) { bind<AuthPluginPresenter>() }
+    factoryOf(::AuthPluginUtilImpl) { bind<AuthPluginUtil>() }
 }

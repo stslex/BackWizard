@@ -19,7 +19,8 @@ class AuthRepositoryImpl(
         .insertNewUser(
             username = username,
             password = password
-        )?.toData()
+        )
+        ?.toData()
 
     override suspend fun getUser(
         username: String

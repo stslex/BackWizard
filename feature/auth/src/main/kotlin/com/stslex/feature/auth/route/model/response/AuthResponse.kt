@@ -6,6 +6,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AuthResponse(
     @SerialName("token")
-    private val token: String
+    val token: String,
+    @SerialName("uuid")
+    val uuid: String,
+    @SerialName("username")
+    val username: String,
 )
 
