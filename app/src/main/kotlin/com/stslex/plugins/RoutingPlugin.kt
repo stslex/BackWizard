@@ -1,31 +1,28 @@
 package com.stslex.plugins
 
-import com.stslex.db.DatabaseFactory
-import com.stslex.db.UserEntitiesTable
+import com.stslex.core.database.sources.user.source.UserDatabaseSource
+import com.stslex.feature.auth.route.authRoute
 import io.ktor.server.application.*
 import io.ktor.server.plugins.swagger.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.util.*
-import org.jetbrains.exposed.sql.select
+import org.koin.ktor.ext.inject
 
 fun Application.routingPlugin() {
     routing {
-        routineTest()
         routineSwagger()
+        authRoute()
+        routineTest()
     }
 }
 
 fun Routing.routineTest() {
-    get("hello") {
-        val username = call.attributes[AttributeKey<String>("username")]
-        val nickname = DatabaseFactory.dbQuery {
-            UserEntitiesTable.select {
-                UserEntitiesTable.username eq username
-            }.map {
-                it[UserEntitiesTable.nickname]
-            }
-        }
+    val userDatabaseSource by inject<UserDatabaseSource>()
+    get("hello/{username}") {
+        val username = call.parameters["username"].orEmpty()
+        val nickname = userDatabaseSource.getUserByUsername(username = username)
+            ?.nickname
+            ?: "unknown"
         call.respond(nickname)
     }
     get("test") {
@@ -33,7 +30,7 @@ fun Routing.routineTest() {
     }
 }
 
-fun Routing.routineSwagger() {
+private fun Routing.routineSwagger() {
     swaggerUI(
         path = "swagger",
         swaggerFile = "documentation/documentation.yaml"

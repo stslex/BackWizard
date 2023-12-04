@@ -1,12 +1,12 @@
 package com.stslex
 
-import com.stslex.db.DatabaseFactory
+import com.stslex.core.database.plugin.DatabasePlugin.configureDatabase
+import com.stslex.plugins.auth.AuthPlugin.configureAuthPlugin
+import com.stslex.plugins.configureDI
 import com.stslex.plugins.routingPlugin
 import com.stslex.plugins.serializationPlugin
 import com.stslex.plugins.templatingPlugin
-import com.typesafe.config.ConfigFactory
 import io.ktor.server.application.*
-import io.ktor.server.config.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 
@@ -21,10 +21,10 @@ fun main() {
 }
 
 private fun Application.module() {
-    DatabaseFactory.initDatabase()
+    configureDI()
+    configureDatabase()
+    configureAuthPlugin()
     serializationPlugin()
     routingPlugin()
     templatingPlugin()
 }
-
-val config: HoconApplicationConfig = HoconApplicationConfig(ConfigFactory.load("application.conf"))

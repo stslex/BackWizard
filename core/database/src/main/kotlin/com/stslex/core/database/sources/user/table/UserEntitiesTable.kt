@@ -1,4 +1,4 @@
-package com.stslex.db
+package com.stslex.core.database.sources.user.table
 
 import org.jetbrains.exposed.sql.Table
 
