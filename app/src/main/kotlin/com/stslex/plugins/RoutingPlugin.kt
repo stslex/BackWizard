@@ -1,6 +1,7 @@
 package com.stslex.plugins
 
 import com.stslex.core.database.sources.user.source.UserDatabaseSource
+import com.stslex.feature.auth.route.authRoute
 import io.ktor.server.application.*
 import io.ktor.server.plugins.swagger.*
 import io.ktor.server.response.*
@@ -9,8 +10,9 @@ import org.koin.ktor.ext.inject
 
 fun Application.routingPlugin() {
     routing {
-        routineTest()
         routineSwagger()
+        authRoute()
+        routineTest()
     }
 }
 
@@ -28,7 +30,7 @@ fun Routing.routineTest() {
     }
 }
 
-fun Routing.routineSwagger() {
+private fun Routing.routineSwagger() {
     swaggerUI(
         path = "swagger",
         swaggerFile = "documentation/documentation.yaml"

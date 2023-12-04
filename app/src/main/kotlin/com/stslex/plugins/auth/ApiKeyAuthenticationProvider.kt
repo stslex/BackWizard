@@ -1,4 +1,4 @@
-package com.stslex.feature.auth.plugin
+package com.stslex.plugins.auth
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -65,10 +65,6 @@ internal class ApiKeyAuthenticationProvider private constructor(
         private const val AUTH_SCHEME = "apiKey"
     }
 }
-
-data class ApiKeyPrincipal(
-    val apiKey: String
-) : Principal
 
 internal fun AuthenticationConfig.apiKey(
     name: String? = null,

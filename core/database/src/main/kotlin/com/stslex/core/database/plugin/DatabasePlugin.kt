@@ -10,7 +10,7 @@ object DatabasePlugin {
 
     private const val DRIVER_POSTGRES = "org.postgresql.Driver"
 
-    fun configure() {
+    fun configureDatabase() {
         val dbPostgres = Database.connect(
             driver = DRIVER_POSTGRES,
             url = Config.postgresUrl,

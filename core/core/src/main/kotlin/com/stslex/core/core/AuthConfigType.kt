@@ -4,7 +4,7 @@ enum class AuthConfigType(
     val configName: String,
     val realm: String
 ) {
-    DEFAULT(
+    UN_AUTH(
         configName = "default.auth",
         realm = "Access to auth"
     ),

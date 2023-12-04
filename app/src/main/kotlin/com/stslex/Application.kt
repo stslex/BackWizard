@@ -1,7 +1,7 @@
 package com.stslex
 
-import com.stslex.core.database.plugin.DatabasePlugin
-import com.stslex.feature.auth.plugin.AuthPlugin.configureAuthPlugin
+import com.stslex.core.database.plugin.DatabasePlugin.configureDatabase
+import com.stslex.plugins.auth.AuthPlugin.configureAuthPlugin
 import com.stslex.plugins.configureDI
 import com.stslex.plugins.routingPlugin
 import com.stslex.plugins.serializationPlugin
@@ -22,7 +22,7 @@ fun main() {
 
 private fun Application.module() {
     configureDI()
-    DatabasePlugin.configure()
+    configureDatabase()
     configureAuthPlugin()
     serializationPlugin()
     routingPlugin()

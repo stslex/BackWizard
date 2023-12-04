@@ -1,4 +1,4 @@
-package com.stslex.core.core
+package com.stslex.core.core.error
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

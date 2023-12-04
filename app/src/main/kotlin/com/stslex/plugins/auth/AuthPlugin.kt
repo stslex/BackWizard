@@ -1,11 +1,11 @@
-package com.stslex.feature.auth.plugin
+package com.stslex.plugins.auth
 
-import com.stslex.core.core.ApiError
 import com.stslex.core.core.AuthConfigType
 import com.stslex.core.core.Config
 import com.stslex.core.core.respondError
-import com.stslex.core.database.sources.user.source.UserDatabaseSource
-import com.stslex.feature.auth.plugin.JwtAuthPlugin.configureJwt
+import com.stslex.plugins.auth.JwtAuthPlugin.configureJwt
+import com.stslex.plugins.auth.model.UnauthorizedError
+import com.stslex.plugins.auth.presenter.AuthPluginPresenter
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
@@ -16,16 +16,15 @@ object AuthPlugin {
     internal const val API_KEY_HEADER_NAME = "x-api-key"
 
     fun Application.configureAuthPlugin() {
-        val userDatabaseSource by inject<UserDatabaseSource>()
-
+        val authPluginPresenter by inject<AuthPluginPresenter>()
         install(Authentication) {
             configureApiKey()
-            configureJwt(userDatabaseSource::getUserByUuid)
+            configureJwt(authPluginPresenter)
         }
     }
 
     private fun AuthenticationConfig.configureApiKey() {
-        apiKey(AuthConfigType.DEFAULT.configName) {
+        apiKey(AuthConfigType.UN_AUTH.configName) {
             headerName = API_KEY_HEADER_NAME
             validate { apiKey ->
                 ApiKeyPrincipal(apiKey).takeIf {
@@ -33,7 +32,7 @@ object AuthPlugin {
                 }
             }
             challenge {
-                respondError(ApiError.Unauthorized.ApiKey)
+                respondError(UnauthorizedError.API_KEY)
             }
         }
     }

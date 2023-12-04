@@ -1,5 +1,7 @@
 package com.stslex.core.core
 
+import com.stslex.core.core.error.ApiError
+
 sealed interface ApiResponse<out T> {
 
     data class Success<out T>(

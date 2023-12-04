@@ -5,6 +5,7 @@ import com.stslex.core.database.base.toUUID
 import com.stslex.core.database.sources.user.model.UserSourceModel
 import com.stslex.core.database.sources.user.model.toSourceUser
 import com.stslex.core.database.sources.user.table.UserEntitiesTable
+import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 
 class UserDatabaseSourceImpl : UserDatabaseSource, DatabaseSource() {
@@ -27,5 +28,20 @@ class UserDatabaseSourceImpl : UserDatabaseSource, DatabaseSource() {
                 .singleOrNull()
                 ?.toSourceUser()
         }
+    }
+
+    override suspend fun insertNewUser(
+        username: String,
+        password: String
+    ) = dbQuery {
+        UserEntitiesTable
+            .insert {
+                it[UserEntitiesTable.username] = username
+                it[UserEntitiesTable.password] = password
+                it[nickname] = ""
+            }
+            .resultedValues
+            ?.singleOrNull()
+            ?.toSourceUser()
     }
 }
