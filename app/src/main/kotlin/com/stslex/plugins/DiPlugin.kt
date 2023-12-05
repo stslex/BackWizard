@@ -2,6 +2,7 @@ package com.stslex.plugins
 
 import com.stslex.core.database.di.databaseModule
 import com.stslex.feature.auth.di.authModule
+import com.stslex.feature.user.di.userModule
 import com.stslex.plugins.auth.di.authPluginModule
 import io.ktor.server.application.*
 import org.koin.ktor.plugin.Koin
@@ -13,7 +14,8 @@ fun Application.configureDI() {
         modules(
             databaseModule,
             authPluginModule,
-            authModule
+            authModule,
+            userModule
         )
     }
 }

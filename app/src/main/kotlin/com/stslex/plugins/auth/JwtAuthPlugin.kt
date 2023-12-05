@@ -3,7 +3,7 @@ package com.stslex.plugins.auth
 import com.stslex.core.core.AuthConfigType
 import com.stslex.core.core.Config
 import com.stslex.core.core.respondError
-import com.stslex.feature.auth.utils.JwtConfig
+import com.stslex.core.core.JwtConfig
 import com.stslex.plugins.auth.AuthPlugin.API_KEY_HEADER_NAME
 import com.stslex.plugins.auth.model.UnauthorizedError
 import com.stslex.plugins.auth.presenter.AuthPluginUtil

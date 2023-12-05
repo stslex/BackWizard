@@ -20,8 +20,26 @@ object AuthPlugin {
         install(Authentication) {
             configureApiKey()
             configureJwt(authPluginPresenter)
+            configureAdmin()
         }
     }
+
+    private fun AuthenticationConfig.configureAdmin() {
+        basic(AuthConfigType.ADMIN.configName) {
+            validate { credential ->
+                if (credential.name == "admin" || credential.password == Config.admin) {
+                    AdminPrincipal(credential.name, credential.password)
+                } else {
+                    null
+                }
+            }
+        }
+    }
+
+    data class AdminPrincipal(
+        val name: String,
+        val password: String
+    ) : Principal
 
     private fun AuthenticationConfig.configureApiKey() {
         apiKey(AuthConfigType.UN_AUTH.configName) {
