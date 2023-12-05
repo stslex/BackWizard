@@ -11,5 +11,9 @@ enum class AuthConfigType(
     JWT_TOKEN_AUTH(
         configName = "jwt.token.auth",
         realm = "Access to the '/' path"
+    ),
+    ADMIN(
+        configName = "admin",
+        realm = "Access to the '/admin' path"
     )
 }

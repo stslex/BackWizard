@@ -9,14 +9,15 @@ import org.jetbrains.exposed.sql.transactions.transaction
 object DatabasePlugin {
 
     private const val DRIVER_POSTGRES = "org.postgresql.Driver"
-
-    fun configureDatabase() {
-        val dbPostgres = Database.connect(
+    val dbPostgres: Database
+        get() = Database.connect(
             driver = DRIVER_POSTGRES,
             url = Config.postgresUrl,
             user = Config.postgresUser,
             password = Config.postgresPassword
         )
+
+    fun configureDatabase() {
         transaction(dbPostgres) {
             SchemaUtils.create(UserEntitiesTable)
         }
