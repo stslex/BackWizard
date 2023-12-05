@@ -28,14 +28,19 @@ enum class AuthError(
         messageCode = 103,
         message = "User with this username is already exist"
     ),
+    USERNAME_IS_EXIST(
+        statusCode = HttpStatusCode.Conflict,
+        messageCode = 104,
+        message = "User with this username is already exist"
+    ),
     USER_IS_NOT_EXIST(
         statusCode = HttpStatusCode.NotAcceptable,
-        messageCode = 103,
+        messageCode = 105,
         message = "Couldn't find user with this username"
     ),
     INVALID_USERNAME(
         statusCode = HttpStatusCode.LengthRequired,
-        messageCode = 104,
+        messageCode = 106,
         message = "Username is invalid"
     )
 }

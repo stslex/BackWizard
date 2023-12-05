@@ -4,9 +4,15 @@ import com.stslex.feature.auth.data.model.AuthUserDataModel
 
 interface AuthRepository {
 
-    suspend fun isUserExist(username: String): Boolean
+    suspend fun isLoginExist(login: String): Boolean
 
-    suspend fun saveUser(username: String, password: String): AuthUserDataModel?
+    suspend fun isUsernameExist(username: String): Boolean
 
-    suspend fun getUser(username: String): AuthUserDataModel?
+    suspend fun saveUser(
+        login: String,
+        password: String,
+        username: String
+    ): AuthUserDataModel?
+
+    suspend fun getUser(login: String): AuthUserDataModel?
 }

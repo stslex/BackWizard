@@ -1,9 +1,10 @@
 package com.stslex.feature.auth.utils
 
 import com.auth0.jwt.JWT
-import com.stslex.feature.auth.utils.JwtConfig.PAYLOAD_USERNAME
-import com.stslex.feature.auth.utils.JwtConfig.PAYLOAD_UUID
-import com.stslex.feature.auth.utils.JwtConfig.algorithm
+import com.stslex.core.core.JwtConfig
+import com.stslex.core.core.JwtConfig.PAYLOAD_USERNAME
+import com.stslex.core.core.JwtConfig.PAYLOAD_UUID
+import com.stslex.core.core.JwtConfig.algorithm
 import java.util.*
 
 class JwtGeneratorImpl : JwtGenerator {

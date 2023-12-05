@@ -1,6 +1,5 @@
 package com.stslex.core.core
 
-import com.stslex.core.core.error.ApiCommonError
 import com.stslex.core.core.error.ApiError
 
 sealed interface ApiResponse<out T> {
@@ -37,7 +36,9 @@ suspend inline fun <T> processCall(
     crossinline onSuccess: suspend (T) -> Unit
 ) {
     runCatching { action() }
-        .onFailure { onError(ApiCommonError.INTERNAL_ERROR) }
+        .onFailure { error ->
+            onError(ApiError.InternalError(error))
+        }
         .onSuccess { response ->
             response
                 .onSuccess(onSuccess)
