@@ -42,5 +42,10 @@ enum class AuthError(
         statusCode = HttpStatusCode.LengthRequired,
         messageCode = 106,
         message = "Username is invalid"
+    ),
+    INVALID_LOGIN(
+        statusCode = HttpStatusCode.LengthRequired,
+        messageCode = 106,
+        message = "Login is invalid"
     )
 }

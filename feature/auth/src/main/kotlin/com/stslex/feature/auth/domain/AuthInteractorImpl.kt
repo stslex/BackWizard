@@ -17,7 +17,7 @@ class AuthInteractorImpl(
         request: RegistrationRequest
     ): ApiResponse<RegistrationResponse> {
         when {
-            request.login.length !in MIN_LOGIN_LENGTH..MAX_LOGIN_LENGTH -> AuthError.INVALID_USERNAME
+            request.login.length !in MIN_LOGIN_LENGTH..MAX_LOGIN_LENGTH -> AuthError.INVALID_LOGIN
             request.password.length !in MIN_PASSWORD_LENGTH..MAX_PASSWORD_LENGTH -> AuthError.INVALID_PASSWORD_FORMAT
             request.username.length !in MIN_USERNAME_LENGTH..MAX_USERNAME_LENGTH -> AuthError.INVALID_USERNAME
             else -> null

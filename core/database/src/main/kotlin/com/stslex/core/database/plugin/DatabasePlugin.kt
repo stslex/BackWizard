@@ -18,6 +18,8 @@ object DatabasePlugin {
             password = Config.postgresPassword
         )
         transaction(dbPostgres) {
+            // TODO remove this line
+            SchemaUtils.dropDatabase(db.url)
             SchemaUtils.create(UserEntitiesTable)
         }
     }
