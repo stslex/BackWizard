@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":core:database"))
     implementation(project(":feature:auth"))
     implementation(project(":feature:user"))
+    implementation(project(":feature:admin"))
 
     implementation(libs.ktor.server.swagger)
     testImplementation(libs.bundles.test)

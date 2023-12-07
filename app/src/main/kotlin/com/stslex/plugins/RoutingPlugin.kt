@@ -4,6 +4,7 @@ import com.stslex.core.core.AuthConfigType.*
 import com.stslex.core.database.plugin.DatabasePlugin.dbPostgres
 import com.stslex.core.database.sources.user.source.UserDatabaseSource
 import com.stslex.core.database.sources.user.table.UserEntitiesTable
+import com.stslex.feature.admin.adminRoute
 import com.stslex.feature.auth.route.authRoute
 import com.stslex.feature.user.route.userRoute
 import io.ktor.server.application.*
@@ -28,16 +29,6 @@ fun Application.routingPlugin() {
             adminRoute()
         }
         routineTest()
-    }
-}
-
-private fun Route.adminRoute() {
-    post("admin/drop") {
-        transaction(dbPostgres) {
-            SchemaUtils.drop(UserEntitiesTable)
-            SchemaUtils.create(UserEntitiesTable)
-        }
-        call.respond("drop_success")
     }
 }
 

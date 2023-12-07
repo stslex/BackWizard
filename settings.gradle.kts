@@ -19,3 +19,5 @@ include(":core:core")
 include(":core:database")
 include(":feature:auth")
 include("feature:user")
+include("feature:admin")
+findProject(":feature:admin")?.name = "admin"

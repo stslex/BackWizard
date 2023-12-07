@@ -1,4 +1,4 @@
-package com.stslex.plugins.auth
+package com.stslex.core.core.providers
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -6,7 +6,7 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 
-internal class ApiKeyAuthenticationProvider private constructor(
+class ApiKeyAuthenticationProvider private constructor(
     configuration: Configuration
 ) : AuthenticationProvider(configuration) {
 
@@ -37,7 +37,7 @@ internal class ApiKeyAuthenticationProvider private constructor(
         }
     }
 
-    internal class Configuration internal constructor(name: String?) : Config(name) {
+    class Configuration internal constructor(name: String?) : Config(name) {
 
         internal lateinit var authenticationFunction: ApiKeyAuthenticationFunction
 
@@ -66,7 +66,7 @@ internal class ApiKeyAuthenticationProvider private constructor(
     }
 }
 
-internal fun AuthenticationConfig.apiKey(
+fun AuthenticationConfig.apiKey(
     name: String? = null,
     configure: ApiKeyAuthenticationProvider.Configuration.() -> Unit
 ) {
