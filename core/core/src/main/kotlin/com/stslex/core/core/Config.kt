@@ -9,6 +9,7 @@ object Config : HoconApplicationConfig(ConfigFactory.load("application.conf")) {
     private const val POSTGRES_USER = "postgres.user"
     private const val POSTGRES_PASSWORD = "postgres.password"
     private const val AUTH_SECRET = "jwt.auth.secret"
+    private const val AUTH_REFRESH_SECRET = "jwt.refresh.secret"
     private const val API_KEY = "apiKey"
     private const val API_VERSION = "v1"
     private const val ADMIN = "admin"
@@ -21,4 +22,5 @@ object Config : HoconApplicationConfig(ConfigFactory.load("application.conf")) {
     val apiKey by lazy { property(API_KEY).getString() }
     val admin by lazy { property(ADMIN).getString() }
     val authSecret by lazy { property(AUTH_SECRET).getString() }
+    val refreshSecret by lazy { property(AUTH_REFRESH_SECRET).getString() }
 }

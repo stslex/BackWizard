@@ -3,17 +3,21 @@ package com.stslex.feature.auth.route.model.response
 import com.stslex.feature.auth.data.model.AuthUserDataModel
 
 fun AuthUserDataModel.toAuthResponse(
-    token: String
+    accessToken: String,
+    refreshToken: String
 ): AuthResponse = AuthResponse(
-    token = token,
+    token = accessToken,
+    refreshToken = refreshToken,
     uuid = uuid,
     username = username
 )
 
 fun AuthUserDataModel.toRegistrationResponse(
-    token: String
+    accessToken: String,
+    refreshToken: String
 ): RegistrationResponse = RegistrationResponse(
-    token = token,
+    token = accessToken,
+    refreshToken = refreshToken,
     uuid = uuid,
     username = username
 )

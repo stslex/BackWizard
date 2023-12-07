@@ -7,6 +7,8 @@ import kotlinx.serialization.Serializable
 data class RegistrationResponse(
     @SerialName("token")
     val token: String,
+    @SerialName("refresh_token")
+    val refreshToken: String,
     @SerialName("uuid")
     val uuid: String,
     @SerialName("username")

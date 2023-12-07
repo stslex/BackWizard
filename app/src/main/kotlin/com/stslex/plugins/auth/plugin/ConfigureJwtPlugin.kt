@@ -28,4 +28,15 @@ internal fun AuthenticationConfig.configureJwt(
             call.respondError(UnauthorizedError.TOKEN)
         }
     }
+    jwt(AuthConfigType.JWT_REFRESH_TOKEN_AUTH.configName) {
+        verifier(JwtConfig.verifierRefresh)
+        realm = AuthConfigType.JWT_REFRESH_TOKEN_AUTH.realm
+        validate { credential ->
+            authPluginPresenter
+                .checkJwtCredential(credential)
+                .takeIf {
+                    request.header(API_KEY_HEADER_NAME) == Config.apiKey
+                }
+        }
+    }
 }
