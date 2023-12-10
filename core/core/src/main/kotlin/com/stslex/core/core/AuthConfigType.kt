@@ -15,5 +15,9 @@ enum class AuthConfigType(
     ADMIN(
         configName = "admin",
         realm = "Access to the '/admin' path"
+    ),
+    JWT_REFRESH_TOKEN_AUTH(
+        configName = "jwt.refresh.token.auth",
+        realm = "Access to the '/refresh' path"
     )
 }

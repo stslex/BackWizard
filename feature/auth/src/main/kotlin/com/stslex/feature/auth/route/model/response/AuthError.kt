@@ -47,5 +47,10 @@ enum class AuthError(
         statusCode = HttpStatusCode.LengthRequired,
         messageCode = 106,
         message = "Login is invalid"
-    )
+    ),
+    TOKEN_REFRESH_PAYLOAD(
+        statusCode = HttpStatusCode.Unauthorized,
+        messageCode = 107,
+        message = "Token refresh payload is invalid"
+    ),
 }

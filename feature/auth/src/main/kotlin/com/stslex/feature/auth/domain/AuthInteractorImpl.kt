@@ -1,12 +1,15 @@
 package com.stslex.feature.auth.domain
 
 import com.stslex.core.core.ApiResponse
+import com.stslex.core.core.JwtConfig
 import com.stslex.feature.auth.data.AuthRepository
 import com.stslex.feature.auth.data.model.AuthUserDataModel
 import com.stslex.feature.auth.route.model.request.AuthRequest
+import com.stslex.feature.auth.route.model.request.RefreshTokenRequest
 import com.stslex.feature.auth.route.model.request.RegistrationRequest
 import com.stslex.feature.auth.route.model.response.*
 import com.stslex.feature.auth.utils.JwtGenerator
+import com.stslex.feature.auth.utils.JwtType
 
 class AuthInteractorImpl(
     private val repository: AuthRepository,
@@ -38,7 +41,10 @@ class AuthInteractorImpl(
             )
             ?: return ApiResponse.Error(AuthError.SAVE_USER)
 
-        val response = user.toRegistrationResponse(user.generatedToken)
+        val response = user.toRegistrationResponse(
+            accessToken = user.getToken(JwtType.ACCESS),
+            refreshToken = user.getToken(JwtType.REFRESH)
+        )
         return ApiResponse.Success(response)
     }
 
@@ -57,18 +63,44 @@ class AuthInteractorImpl(
             return ApiResponse.Error(AuthError.INVALID_PASSWORD)
         }
 
-        val response = user.toAuthResponse(user.generatedToken)
+        val response = user.toAuthResponse(
+            accessToken = user.getToken(JwtType.ACCESS),
+            refreshToken = user.getToken(JwtType.REFRESH)
+        )
         return ApiResponse.Success(response)
     }
 
-    private val AuthUserDataModel.generatedToken: String
-        get() = jwtGenerator
-            .generate(
-                uuid = uuid,
-                username = username,
+    override suspend fun refreshToken(request: RefreshTokenRequest): ApiResponse<RefreshTokenResponse> {
+        val currentRefreshTokenString = jwtGenerator.getJwt(request.token)
+        val uuid = currentRefreshTokenString
+            .getClaim(JwtConfig.PAYLOAD_UUID)
+            ?.asString()
+            ?: return ApiResponse.Error(AuthError.TOKEN_REFRESH_PAYLOAD)
+        val username = currentRefreshTokenString
+            .getClaim(JwtConfig.PAYLOAD_USERNAME)
+            ?.asString()
+            ?: return ApiResponse.Error(AuthError.TOKEN_REFRESH_PAYLOAD)
+        val user = repository.getUser(uuid)
+            ?: return ApiResponse.Error(AuthError.USER_IS_NOT_EXIST)
+        if (user.username != username) {
+            return ApiResponse.Error(AuthError.TOKEN_REFRESH_PAYLOAD)
+        }
+        return ApiResponse.Success(
+            RefreshTokenResponse(
+                accessToken = user.getToken(JwtType.ACCESS),
+                refreshToken = user.getToken(JwtType.REFRESH)
             )
-            .ifBlank { null }
-            ?: throw IllegalStateException("Token is blank")
+        )
+    }
+
+    private fun AuthUserDataModel.getToken(type: JwtType): String = jwtGenerator
+        .generateToken(
+            uuid = uuid,
+            username = username,
+            type = type
+        )
+        .ifBlank { null }
+        ?: throw IllegalStateException("Token is blank")
 
     companion object {
 

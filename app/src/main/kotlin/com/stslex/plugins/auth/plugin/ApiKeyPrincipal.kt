@@ -1,4 +1,4 @@
-package com.stslex.plugins.auth
+package com.stslex.plugins.auth.plugin
 
 import io.ktor.server.auth.*
 

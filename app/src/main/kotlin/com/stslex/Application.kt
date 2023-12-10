@@ -1,7 +1,7 @@
 package com.stslex
 
 import com.stslex.core.database.plugin.DatabasePlugin.configureDatabase
-import com.stslex.plugins.auth.AuthPlugin.configureAuthPlugin
+import com.stslex.plugins.auth.configureAuthPlugin
 import com.stslex.plugins.configureDI
 import com.stslex.plugins.routingPlugin
 import com.stslex.plugins.serializationPlugin

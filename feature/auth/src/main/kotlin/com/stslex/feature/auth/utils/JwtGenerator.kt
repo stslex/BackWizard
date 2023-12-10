@@ -1,6 +1,14 @@
 package com.stslex.feature.auth.utils
 
+import com.auth0.jwt.interfaces.DecodedJWT
+
 interface JwtGenerator {
 
-    fun generate(uuid: String, username: String): String
+    fun generateToken(
+        uuid: String,
+        username: String,
+        type: JwtType
+    ): String
+
+    fun getJwt(token: String): DecodedJWT
 }
