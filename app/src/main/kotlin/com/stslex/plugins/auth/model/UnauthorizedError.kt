@@ -9,7 +9,7 @@ enum class UnauthorizedError(
 ) : ApiError {
     TOKEN(
         messageCode = 1,
-        message = "Token is Invalid or has been expired"
+        message = "Token is invalid or has expired"
     ),
     API_KEY(
         messageCode = 2,
