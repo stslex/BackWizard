@@ -9,6 +9,7 @@ paths:
         - Test
       summary: Gets hello test string
       description: >
+        Returns a greeting message for test purposes.
       responses:
         '200':
           description: OK

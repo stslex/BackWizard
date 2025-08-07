@@ -30,7 +30,7 @@ class AuthRepositoryImpl(
     override suspend fun getUser(
         login: String
     ): AuthUserDataModel? = userDataSource
-        .getUserByUsername(login)
+        .getUserByLogin(login)
         ?.toData()
 }
 
